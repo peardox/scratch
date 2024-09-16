@@ -18,6 +18,7 @@ RGBLED led(PicoDisplay::LED_R, PicoDisplay::LED_G, PicoDisplay::LED_B);
 
 int main() {
   st7789.set_backlight(100);
+    led.set_rgb(0,0,0);
 
   struct pt {
     float      x;
@@ -62,10 +63,11 @@ int main() {
       graphics.circle(Point(shape.x, shape.y), shape.r);
     }
 
+/*  No LED
     float led_step = fmod(i / 20.0f, M_PI * 2.0f);
     int r = (sin(led_step) * 32.0f) + 32.0f;
     led.set_rgb(r, r / 1.2f, r);
-
+*/
 
     std::vector<Point> poly;
     poly.push_back(Point(30, 30));

@@ -1,31 +1,3 @@
-# == DO NEVER EDIT THE NEXT LINES for Raspberry Pi Pico VS Code Extension to work ==
-if(WIN32)
-    set(USERHOME $ENV{USERPROFILE})
-else()
-    set(USERHOME $ENV{HOME})
-endif()
-set(sdkVersion 2.0.0)
-set(toolchainVersion 13_2_Rel1)
-set(picotoolVersion 2.0.0)
-set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
-if (EXISTS ${picoVscode})
-    include(${picoVscode})
-endif()
-# ====================================================================================
-# == DO NEVER EDIT THE NEXT LINES for Raspberry Pi Pico VS Code Extension to work ==
-if(WIN32)
-    set(USERHOME $ENV{USERPROFILE})
-else()
-    set(USERHOME $ENV{HOME})
-endif()
-set(sdkVersion 2.0.0)
-set(toolchainVersion 13_2_Rel1)
-set(picotoolVersion 2.0.0)
-set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
-if (EXISTS ${picoVscode})
-    include(${picoVscode})
-endif()
-# ====================================================================================
 # ====================================================================================
 # Generated Cmake Pico project file
 
@@ -66,13 +38,8 @@ add_executable(
   examples/pico_display/image_data.cpp
 )
 
-# Pull in pico libraries that we need
-target_link_libraries(testproj pico_stdlib hardware_spi hardware_pwm hardware_dma rgbled pico_display pico_graphics st7789)
-
 # Initialize the SDK
 pico_sdk_init()
-
-#pico_find_compiler(PICO_COMPILER_LD ${PICO_GCC_TRIPLE}-ld)
 
 include_directories(
   ${CMAKE_CURRENT_LIST_DIR}
@@ -80,16 +47,13 @@ include_directories(
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror")
 
+# Add libraries + drivers etc
 add_subdirectory(common)
-add_subdirectory(drivers/st7789)
-add_subdirectory(drivers/rgbled)
-add_subdirectory(libraries/bitmap_fonts)
-add_subdirectory(libraries/hershey_fonts)
-add_subdirectory(libraries/pico_graphics)
-add_subdirectory(libraries/pico_display)
+add_subdirectory(drivers)
+add_subdirectory(libraries)
 
-# Example Pico Pack projects
-#add_subdirectory(examples/pico_display)
+# Pull in pico libraries that we need
+target_link_libraries(testproj pico_stdlib hardware_spi hardware_pwm hardware_dma rgbled pico_display pico_graphics st7789)
 
 # create map/bin/hex file etc.
 pico_add_extra_outputs(testproj)
